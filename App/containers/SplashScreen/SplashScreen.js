@@ -14,7 +14,7 @@ export default class SplashScreen extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.logo}>
-          <Text>IKLIM</Text>
+          <Text>WEATHER APP</Text>
         </View>
       </View>
     );

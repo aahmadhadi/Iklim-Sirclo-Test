@@ -1,15 +1,15 @@
 import {createAppContainer, createStackNavigator} from 'react-navigation';
 
 import RootScreen from '../containers/Root/RootScreen';
-import SplashScreen from '../containers/SplashScreen/SplashScreen';
+import WeatherScreen from '../containers/WeatherScreen/WeatherScreen';
 
 const StackNavigator = createStackNavigator(
   {
-    SplashScreen,
     RootScreen,
+    WeatherScreen,
   },
   {
-    initialRouteName: 'SplashScreen',
+    initialRouteName: 'RootScreen',
     headerMode: 'none',
   },
 );
