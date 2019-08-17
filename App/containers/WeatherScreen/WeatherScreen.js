@@ -1,32 +1,48 @@
 import React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity, View, ActivityIndicator} from 'react-native';
 
 import {getWeather} from '../../public/redux/action';
 import {connect} from 'react-redux';
 
+import Card from '../../components/card/Card';
 class WeatherScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      data: null,
+      city: this.props.navigation.getParam('name'),
+    };
   }
 
-  fetchData = () => {
-    this.props.dispatch(getWeather('Jakarta'));
-  };
-
   componentDidMount = () => {
-    this.fetchData();
+    this.props.dispatch(getWeather(this.state.city)).then(result => {
+      this.setState({data: this.props.weather});
+    });
   };
 
+  weatherList() {
+    this.state.data.list.map(data => {
+      return (
+        <View>
+          <Text>{data.dt}a</Text>
+        </View>
+      );
+    });
+  }
   render() {
+    if (!this.state.data) {
+      return (
+        <View>
+          <ActivityIndicator />
+        </View>
+      );
+    }
     return (
       <View>
         <View>
-          <Text>{this.props.navigation.getParam('name')}</Text>
+          <Text>{this.state.city}</Text>
         </View>
-        <TouchableOpacity onPress={() => console.warn(this.props)}>
-          <Text>hehe</Text>
-        </TouchableOpacity>
+        <Card data={this.state.data.list} />
       </View>
     );
   }
@@ -34,7 +50,7 @@ class WeatherScreen extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    weather: state.result,
+    weather: state.weather.results,
   };
 };
 
